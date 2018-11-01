@@ -53,9 +53,9 @@ def main():
     #     # end while
     # return
     tUpdateSlot = threading.Thread(target=UpdateSlotInPark.updateAvailableSlotToDB(), args=())
-    tIRSensor = threading.Thread(target=IRSensorThread.objectByIRSensorDetection(), args=())
+##    tIRSensor = threading.Thread(target=IRSensorThread.objectByIRSensorDetection(), args=())
     tUpdateSlot.start()
-    tIRSensor.start()
+##    tIRSensor.start()
 
     return
 
