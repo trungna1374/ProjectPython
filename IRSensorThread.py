@@ -1,4 +1,4 @@
-isObject = False
+isObjectAppear = False
 def objectByIRSensorDetection():
     while True:
         print("haha")
