@@ -4,11 +4,10 @@ import RPi.GPIO as GPIO
 def init():
     global pwm1
     global pwm2
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(11, GPIO.OUT)
-    GPIO.setup(12, GPIO.OUT)
-    pwm1 = GPIO.PWM(11, 50)
-    pwm2 = GPIO.PWM(12, 50)
+    GPIO.setup(17, GPIO.OUT)
+    GPIO.setup(18, GPIO.OUT)
+    pwm1 = GPIO.PWM(17, 50)
+    pwm2 = GPIO.PWM(18, 50)
     pwm1.start(15)
     pwm2.start(10)
     return
