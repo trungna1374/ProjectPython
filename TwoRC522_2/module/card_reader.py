@@ -9,10 +9,10 @@ Class in Python 2.7 that executes a Thread for reading RFID tags.
 import threading
 import signal
 import RPi.GPIO as GPIO
-from module.gpio import PinsGPIO
+from .gpio import PinsGPIO
 from time import sleep
-from module.MFRC522 import MFRC522
-from module.pins import PinControl
+from .MFRC522 import MFRC522
+from .pins import PinControl
 
 continue_reading = True
 
