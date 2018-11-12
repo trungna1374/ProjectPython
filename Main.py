@@ -54,11 +54,11 @@ def main():
     #         key = cv2.waitKey(15)
     #     # end while
     # return
+    ServoProcess.init()
     tUpdateSlot = threading.Thread(target=UpdateSlotInPark.updateAvailableSlotToDB(), args=())
-    tServor = threading.Thread(target=ServoProcess.servoProcess(), args=())
     ##    tIRSensor = threading.Thread(target=IRSensorThread.objectByIRSensorDetection(), args=())
     tUpdateSlot.start()
-    tServor.start()
+
     ##    tIRSensor.start()
 
     return
