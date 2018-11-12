@@ -12,7 +12,7 @@ Press Ctrl + z to finish.
 """
 
 import sys
-from module.card_reader import CardReader
+from .module.card_reader import CardReader
 
 def run():
     
