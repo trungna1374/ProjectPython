@@ -7,6 +7,8 @@ import DetectPlate
 import IRSensorThread
 import UpdateSlotInPark
 import ServoProcess
+import TwoRC522_1.run_main_test
+import TwoRC522_2.run_main_test
 
 from threading import Thread
 import threading
@@ -58,6 +60,8 @@ def main():
     tUpdateSlot = threading.Thread(target=UpdateSlotInPark.updateAvailableSlotToDB(), args=())
     ##    tIRSensor = threading.Thread(target=IRSensorThread.objectByIRSensorDetection(), args=())
     tUpdateSlot.start()
+    TwoRC522_1.run_main_test.run()
+    TwoRC522_2.run_main_test.run()
 
     ##    tIRSensor.start()
 
