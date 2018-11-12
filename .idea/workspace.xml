@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9417dd3b-7eeb-4c0e-96e3-7409e603d5ec" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/PlateDectionThread.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServoProcess.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IRSensorThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/IRSensorThread.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServoProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/ServoProcess.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,7 +45,7 @@
       <file leaf-file-name="UpdateSlotInPark.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UpdateSlotInPark.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="960">
+            <state relative-caret-position="720">
               <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
@@ -59,7 +57,7 @@
       <file leaf-file-name="readver14.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readver14.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2440">
+            <state relative-caret-position="546">
               <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="124" selection-end-column="33" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
@@ -68,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IRSensorThread.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="IRSensorThread.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/IRSensorThread.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="14" selection-end-column="14" />
+            <state relative-caret-position="100">
+              <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -86,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServoProcess.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ServoProcess.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ServoProcess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="320">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -141,9 +139,9 @@
         <option value="$PROJECT_DIR$/ReadAndWriteDBFromSRF05.py" />
         <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/UpdateSlotInPark.py" />
-        <option value="$PROJECT_DIR$/IRSensorThread.py" />
         <option value="$PROJECT_DIR$/PlateDectionThread.py" />
         <option value="$PROJECT_DIR$/ServoProcess.py" />
+        <option value="$PROJECT_DIR$/IRSensorThread.py" />
       </list>
     </option>
   </component>
@@ -156,7 +154,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="width" value="1940" />
     <option name="height" value="1100" />
   </component>
@@ -242,7 +240,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -559,33 +557,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/readver14.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2440">
-          <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="124" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IRSensorThread.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="14" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UpdateSlotInPark.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DetectPlate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -606,6 +577,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UpdateSlotInPark.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PlateDectionThread.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
@@ -615,8 +596,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ServoProcess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="320">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readver14.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="124" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IRSensorThread.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
         </state>
       </provider>
     </entry>
