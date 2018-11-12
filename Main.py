@@ -6,6 +6,7 @@ import DetectNumber
 import DetectPlate
 import IRSensorThread
 import UpdateSlotInPark
+import ServoProcess
 
 from threading import Thread
 import threading
@@ -19,6 +20,7 @@ SCALAR_GREEN = (0.0, 255.0, 0.0)
 SCALAR_RED = (0.0, 0.0, 255.0)
 
 showSteps = False
+
 
 def main():
     # print("\nstart \n\n")
@@ -53,9 +55,11 @@ def main():
     #     # end while
     # return
     tUpdateSlot = threading.Thread(target=UpdateSlotInPark.updateAvailableSlotToDB(), args=())
-##    tIRSensor = threading.Thread(target=IRSensorThread.objectByIRSensorDetection(), args=())
+    tServor = threading.Thread(target=ServoProcess.servoProcess(), args=())
+    ##    tIRSensor = threading.Thread(target=IRSensorThread.objectByIRSensorDetection(), args=())
     tUpdateSlot.start()
-##    tIRSensor.start()
+    tServor.start()
+    ##    tIRSensor.start()
 
     return
 
