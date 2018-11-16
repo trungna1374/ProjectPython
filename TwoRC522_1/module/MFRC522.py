@@ -26,7 +26,7 @@ Connector GPIO Pins (J8)
 import spi
 import signal
 import time
-from .pins import PinControl
+from module.pins import PinControl
 
 
 class MFRC522(object):
