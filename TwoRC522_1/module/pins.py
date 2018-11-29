@@ -8,7 +8,7 @@ Classe em Python 2.7 para controle das portas GPIO (BCM) do Raspberry Pi versõe
 
 import os
 import yaml
-from .gpio import PinsGPIO
+from module.gpio import PinsGPIO
 
 
 PINS_YML = os.path.join(os.path.dirname(os.path.abspath(__file__)),"pins.yml")

@@ -12,9 +12,9 @@ Press Ctrl + z to finish.
 """
 
 import sys
-from .module.card_reader import CardReader
+from module.card_reader import CardReader
 
-def run():
+def main(self):
     
     card_reader = CardReader()
     try:
@@ -23,6 +23,8 @@ def run():
         print ("trl+C received! Sending kill to " , reader_card.getName())
         if reader_card.isAlive():
             reader_card._stopevent.set()
-
+            
+if __name__ == '__main__':
+    main(sys.argv)
   
     
