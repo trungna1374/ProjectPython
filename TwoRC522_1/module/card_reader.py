@@ -13,9 +13,17 @@ from module.gpio import PinsGPIO
 from time import sleep
 from module.MFRC522 import MFRC522
 from module.pins import PinControl
+import RPi.GPIO as GPIO
+import MySQLdb
 
+db = MySQLdb.connect("localhost", "root", "Hehe@123", "smart_parking")
+cursor = db.cursor()
+parkId = "p1"
 
 continue_reading = True
+GPIO.setup(17, GPIO.OUT)
+pwm1 = GPIO.PWM(17, 50)
+pwm1.start(15)
 
 
 def end_read(signal,frame):
@@ -79,6 +87,15 @@ class Nfc522(object):
 
                 # Check if authenticated
                 if status == MIFAREReader.MI_OK:
+                    try:
+                        sql = "select * from carplate where UID='%s%s%s%s' and availableDate >= now()" % (str(uid[0]),str(uid[1]),str(uid[2]),str(uid[3]))
+                        cursor.execute(sql)
+                        data = cursor.fetchall()
+                        if len(data) > 0:
+                            pwm1.ChangeDutyCycle(7.5)
+                        # end if
+                    except (MySQLdb.Error, MySQLdb.Warning) as e:
+                        print(e)
                     MIFAREReader.MFRC522_Read(8)
                     MIFAREReader.MFRC522_StopCrypto1()
                 else:
