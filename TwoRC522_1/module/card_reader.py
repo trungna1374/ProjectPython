@@ -10,7 +10,7 @@ import threading
 import signal
 import RPi.GPIO as GPIO
 from module.gpio import PinsGPIO
-from time import sleep
+from time import sleep, gmtime, strftime
 from module.MFRC522 import MFRC522
 from module.pins import PinControl
 import RPi.GPIO as GPIO
@@ -18,6 +18,9 @@ import MySQLdb
 import time
 import SocketioHandle
 import json
+import os
+import cv2
+import datetime
 
 db = MySQLdb.connect("localhost", "root", "Hehe@123", "smart_parking")
 cursor = db.cursor()
@@ -39,6 +42,33 @@ def end_read(signal,frame):
         GPIO.cleanup()
 
         signal.signal(signal.SIGINT, end_read)
+        
+def passBarrie(rfid):
+        SocketioHandle.sendCardMessage(json.dumps({'status':'1','message':'RFID was matched'}))
+        pwm1.ChangeDutyCycle(6)
+        sql = "select * from park where parkId= '%s'" % (parkId)
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        numOfCar = data[0][7] +1
+        sql = "update park set numOfCar = '%d' where parkId= '%s'" % (numOfCar, parkId)
+        print("Update availableSlot %d" %(numOfCar))
+        cursor.execute(sql)
+        db.commit()
+##        checkDelay = False
+##        while not (checkDelay and GPIO.input(15) and GPIO.input(14)):
+##            checkDelay=False
+##            if GPIO.input(15) & GPIO.input(14):
+##                checkDelay=True
+##                time.sleep(1)
+        os.system("curl -s -o /dev/null http://192.168.107.235:8080/0/action/snapshot")
+        time.sleep(2)
+##        pwm1.ChangeDutyCycle(10)
+        SocketioHandle.sendCardMessage(json.dumps({'status':'0','message':''}))
+        img=cv2.imread('/var/lib/motion/lastsnap.jpg',1)
+        filename = rfid+'_lastest.jpg'
+        cv2.imwrite('/home/pi/Project/smartparking/React/public/in/'+filename,img)
+        filename = rfid+strftime("%Y-%m-%d%H:%M:%S", gmtime())+'.jpg'
+        cv2.imwrite('/home/pi/Project/smartparking/React/public/in/'+filename,img)
 
 class Nfc522(object):
     
@@ -49,8 +79,6 @@ class Nfc522(object):
     RST2 = 27 #GPIO
     SPI_DEV0 = '/dev/spidev0.0'
     SPI_DEV1 = '/dev/spidev0.1'
-
-    
 
     def get_nfc_rfid(self, autenticacao=True):
 
@@ -97,28 +125,25 @@ class Nfc522(object):
                         sql = "select * from carplate where UID='%s%s%s%s' and availableDate >= CURDATE()" % (str(uid[0]),str(uid[1]),str(uid[2]),str(uid[3]))
                         cursor.execute(sql)
                         data = cursor.fetchall()
+                        sql = "select * from carplate where UID='%s%s%s%s'" % (str(uid[0]),str(uid[1]),str(uid[2]),str(uid[3]))
+                        cursor.execute(sql)
+                        data1 = cursor.fetchall()
                         if len(data) > 0:
-                            SocketioHandle.sendCardMessage(json.dumps({'status':'1','message':'RFID was matched'}))
-                            pwm1.ChangeDutyCycle(6)
-                            sql = "select * from park where parkId= '%s'" % (parkId)
-                            cursor.execute(sql)
-                            data = cursor.fetchall()
-                            numOfCar = data[0][7] +1
-                            sql = "update park set numOfCar = '%d' where parkId= '%s'" % (numOfCar, parkId)
-                            print("Update availableSlot %d" %(numOfCar))
-                            cursor.execute(sql)
-                            db.commit()
-                            checkDelay = False
-                            while not (checkDelay and GPIO.input(15) and GPIO.input(14)):
-                                checkDelay=False
-                                if GPIO.input(15) & GPIO.input(14):
-                                    checkDelay=True
-                                    time.sleep(1)
-                            time.sleep(3)
-                            pwm1.ChangeDutyCycle(10)
-                            SocketioHandle.sendCardMessage(json.dumps({'status':'0','message':''}))
+                            passBarrie(str(uid[0])+str(uid[1])+str(uid[2])+str(uid[3]))
                         else:
-                            SocketioHandle.sendCardMessage(json.dumps({'status':'3','message':'RFID wasn\'t matched'}))
+                            if len(data1)>0:
+                                SocketioHandle.sendCardMessage(json.dumps({'status':'3','message':'RFID was expired'}))
+                            else:
+                                sql = "select * from card where UID='%s%s%s%s' and status=1" % (str(uid[0]),str(uid[1]),str(uid[2]),str(uid[3]))
+                                cursor.execute(sql)
+                                data = cursor.fetchall()
+                                if len(data)>0:
+                                    sql = "update card set status = 0 where UID= '%s%s%s%s'" % (str(uid[0]),str(uid[1]),str(uid[2]),str(uid[3]))
+                                    cursor.execute(sql)
+                                    db.commit()
+                                    passBarrie(str(uid[0])+str(uid[1])+str(uid[2])+str(uid[3]))
+                                else:
+                                    SocketioHandle.sendCardMessage(json.dumps({'status':'3','message':'RFID wasn\'t matched'}))
                         # end if
                     except (MySQLdb.Error, MySQLdb.Warning) as e:
                         print(e)
