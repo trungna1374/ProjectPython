@@ -6,9 +6,8 @@ import DetectNumber
 import DetectPlate
 import IRSensorThread
 import UpdateSlotInPark
-import ServoProcess
 
-import _thread
+import threading
 from multiprocessing import Process
 import pytesseract as pytess
 
@@ -54,9 +53,8 @@ def main():
     #         key = cv2.waitKey(15)
     #     # end while
     # return
-    ServoProcess.init()
-    ##    tIRSensor = threading.Thread(target=IRSensorThread.objectByIRSensorDetection(), args=())
-    _thread.start_new_thread( UpdateSlotInPark.updateAvailableSlotToDB, () )
+    tUpdate = threading.Thread(target=UpdateSlotInPark.updateAvailableSlotToDB(), args=())
+    tUpdate.start()
     ##    tIRSensor.start()
 
     return

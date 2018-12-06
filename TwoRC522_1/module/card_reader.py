@@ -15,15 +15,21 @@ from module.MFRC522 import MFRC522
 from module.pins import PinControl
 import RPi.GPIO as GPIO
 import MySQLdb
+import time
+import SocketioHandle
+import json
 
 db = MySQLdb.connect("localhost", "root", "Hehe@123", "smart_parking")
 cursor = db.cursor()
 parkId = "p1"
 
 continue_reading = True
-GPIO.setup(17, GPIO.OUT)
-pwm1 = GPIO.PWM(17, 50)
-pwm1.start(15)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18, GPIO.OUT)
+GPIO.setup(14,GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(15,GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+pwm1 = GPIO.PWM(18, 50)
+pwm1.start(10)
 
 
 def end_read(signal,frame):
@@ -88,11 +94,31 @@ class Nfc522(object):
                 # Check if authenticated
                 if status == MIFAREReader.MI_OK:
                     try:
-                        sql = "select * from carplate where UID='%s%s%s%s' and availableDate >= now()" % (str(uid[0]),str(uid[1]),str(uid[2]),str(uid[3]))
+                        sql = "select * from carplate where UID='%s%s%s%s' and availableDate >= CURDATE()" % (str(uid[0]),str(uid[1]),str(uid[2]),str(uid[3]))
                         cursor.execute(sql)
                         data = cursor.fetchall()
                         if len(data) > 0:
-                            pwm1.ChangeDutyCycle(7.5)
+                            SocketioHandle.sendCardMessage(json.dumps({'status':'1','message':'RFID was matched'}))
+                            pwm1.ChangeDutyCycle(6)
+                            sql = "select * from park where parkId= '%s'" % (parkId)
+                            cursor.execute(sql)
+                            data = cursor.fetchall()
+                            numOfCar = data[0][7] +1
+                            sql = "update park set numOfCar = '%d' where parkId= '%s'" % (numOfCar, parkId)
+                            print("Update availableSlot %d" %(numOfCar))
+                            cursor.execute(sql)
+                            db.commit()
+                            checkDelay = False
+                            while not (checkDelay and GPIO.input(15) and GPIO.input(14)):
+                                checkDelay=False
+                                if GPIO.input(15) & GPIO.input(14):
+                                    checkDelay=True
+                                    time.sleep(1)
+                            time.sleep(3)
+                            pwm1.ChangeDutyCycle(10)
+                            SocketioHandle.sendCardMessage(json.dumps({'status':'0','message':''}))
+                        else:
+                            SocketioHandle.sendCardMessage(json.dumps({'status':'3','message':'RFID wasn\'t matched'}))
                         # end if
                     except (MySQLdb.Error, MySQLdb.Warning) as e:
                         print(e)
