@@ -13,9 +13,11 @@ Press Ctrl + z to finish.
 
 import sys
 from module.card_reader import CardReader
+import SocketioHandle
 
-def main(self):
+
     
+def main(self):
     card_reader = CardReader()
     try:
         card_reader.start()
@@ -23,6 +25,7 @@ def main(self):
         print ("trl+C received! Sending kill to " , reader_card.getName())
         if reader_card.isAlive():
             reader_card._stopevent.set()
+    SocketioHandle.run()
             
 if __name__ == '__main__':
     main(sys.argv)
