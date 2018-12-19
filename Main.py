@@ -2,14 +2,15 @@ import os
 
 import cv2
 
-import DetectNumber
-import DetectPlate
-import IRSensorThread
+##import DetectNumber
+##import DetectPlate
+##import IRSensorThread
 import UpdateSlotInPark
+import time
 
 import threading
 from multiprocessing import Process
-import pytesseract as pytess
+##import pytesseract as pytess
 
 # module level variables ##########################################################################
 SCALAR_BLACK = (0.0, 0.0, 0.0)
@@ -53,6 +54,15 @@ def main():
     #         key = cv2.waitKey(15)
     #     # end while
     # return
+##    start_time = time.time()
+##    frame = cv2.imread("/home/pi/ProjectPython/TwoRC522_1/stream_save/lastsnap.jpg",1)
+##    crop = frame[200:340,200:520]
+##    listOfPossiblePlates = DetectPlate.dectecPlatesInImage(crop)
+##    if len(listOfPossiblePlates) > 0:
+##        listOfPossiblePlates.sort(key=lambda possiblePlate: len(possiblePlate.strChars), reverse=True)
+##        number = DetectNumber.detectNumberFromPlate(listOfPossiblePlates[0])
+##        print(number)
+##    print("--- %s seconds ---" % (time.time() - start_time))
     tUpdate = threading.Thread(target=UpdateSlotInPark.updateAvailableSlotToDB(), args=())
     tUpdate.start()
     ##    tIRSensor.start()

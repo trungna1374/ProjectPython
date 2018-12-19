@@ -76,18 +76,7 @@ def dectecPlatesInImage(originalImage):
         # end if
     # end for
     # print(len(posiblePlateList))
-    for i in range(0, len(posiblePlateList)):
-        imgContours = originalImage.copy()
-        p2fRectPoints = cv2.boxPoints(posiblePlateList[i].rrLocationOfPlateInScene)
-
-        cv2.line(imgContours, tuple(p2fRectPoints[0]), tuple(p2fRectPoints[1]), Main.SCALAR_RED, 2)
-        cv2.line(imgContours, tuple(p2fRectPoints[1]), tuple(p2fRectPoints[2]), Main.SCALAR_RED, 2)
-        cv2.line(imgContours, tuple(p2fRectPoints[2]), tuple(p2fRectPoints[3]), Main.SCALAR_RED, 2)
-        cv2.line(imgContours, tuple(p2fRectPoints[3]), tuple(p2fRectPoints[0]), Main.SCALAR_RED, 2)
-
-        posiblePlateList[i].imgStream = imgContours
-    # end for
-
+    
     return posiblePlateList
 
 

@@ -26,5 +26,9 @@ def sendCardMessage(json):
     print('Message:'+json)
     socketio.emit('messageCardFromServer', json)
     
+def sendCarMessage(json):
+    print('Message:'+json)
+    socketio.emit('messageCarFromServer', json)
+    
 def run():
     app.run(host='0.0.0.0',port='8000')

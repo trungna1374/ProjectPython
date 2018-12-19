@@ -47,7 +47,6 @@ def init():
         print(e)
     return
 
-
 def readFromRS485():
     rcv = port.readline()
     print(rcv)
@@ -127,7 +126,7 @@ def updateAvailableSlotToDB():
                 continue;
             if _recPhase == 4:
                 if inch == EOT:
-                    if _recCS == _recCalcCS:
+                    if _recCS == _recCalcCS%256:
                         if _save[_recSender-1] != _data[1]:
                             if _data[1] == 48:
                                 _inSeat -= 1
@@ -136,9 +135,9 @@ def updateAvailableSlotToDB():
                             print(_inSeat)
                             _save[_recSender-1] = _data[1]
                             try:
-                                numberOfAvailableSlot = numberOfSlot - _inSeat
-                                sql = "update park set numOfAvailableSlot = '%d' where parkId= '%s'" % (numberOfAvailableSlot, parkId)
-                                print("Update availableSlot %d" %(numberOfAvailableSlot))
+                                number = numberOfAvailableSlot - _inSeat
+                                sql = "update park set numOfAvailableSlot = '%d' where parkId= '%s'" % (number, parkId)
+                                print("Update availableSlot %d" %(number))
                                 cursor.execute(sql)
                                 db.commit()
                             except (MySQLdb.Error, MySQLdb.Warning) as e:
